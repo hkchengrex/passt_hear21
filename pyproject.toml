@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[project]
+name = "passt"
+version = "1.0.0"
+description = "Fork of hear21passt"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  'pre-commit',
+  'pytest',
+  'pytest-cov',
+  'pytest-env',
+  'torch>=1.8.1',
+  'torchaudio>=0.8.1',
+  'timm>=0.4.12',
+
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["hear21passt"]

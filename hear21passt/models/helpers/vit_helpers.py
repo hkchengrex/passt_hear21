@@ -83,14 +83,14 @@ def load_pretrained(
         )
         return
 
-    _logger.info(f"Loading pretrained weights from url ({pretrained_url})")
+    # _logger.info(f"Loading pretrained weights from url ({pretrained_url})")
     pretrained_loc = download_cached_file(
             pretrained_url,
             check_hash=_CHECK_HASH,
             progress=_DOWNLOAD_PROGRESS,
         )
 
-    state_dict = torch.load(pretrained_loc, map_location="cpu")
+    state_dict = torch.load(pretrained_loc, map_location="cpu", weights_only=True)
 
     if filter_fn is not None:
         # for backwards compat with filter fn that take one arg, try one first, the two
@@ -109,9 +109,9 @@ def load_pretrained(
                 state_dict[weight_name] = adapt_input_conv(
                     in_chans, state_dict[weight_name]
                 )
-                _logger.info(
-                    f"Converted input conv {input_conv_name} pretrained weights from 3 to {in_chans} channel(s)"
-                )
+                # _logger.info(
+                #     f"Converted input conv {input_conv_name} pretrained weights from 3 to {in_chans} channel(s)"
+                # )
             except NotImplementedError as e:
                 del state_dict[weight_name]
                 strict = False
